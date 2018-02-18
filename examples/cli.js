@@ -60,7 +60,8 @@ yargs
 
         // Echo server
         socket.on('data', data => {
-          console.log(`recv[${socket.socket.address().toString()}]:`)
+          const address = socket.socket.address().address
+          console.log(`recv[${address}]: ${data}`)
           socket.write(data)
         })
       })
@@ -82,10 +83,10 @@ yargs
         .then(socket => {
           console.log('Connected to swarm')
           const msg = new Buffer('Hello world')
-          console.log(`send: ${msg.toString()}`)
+          console.log(`send: ${msg}`)
           socket.write(msg)
           socket.once('data', data => {
-            console.log(`recv: ${data.toString()}`)
+            console.log(`recv: ${data}`)
             socket.destroy()
           })
           socket.on('error', err => {
