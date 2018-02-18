@@ -139,7 +139,6 @@ function connect(opts) {
         console.log(`AUTHED WITH HOST! ${address}`)
 
         if (!timeout && !connected) {
-          connected = true
 
           // close swarm when we're done with the socket
           esocket.once('close', () => {
@@ -147,6 +146,7 @@ function connect(opts) {
             // TODO: unannounce to DHT
           })
 
+          connected = true
           cleanup()
           resolve(esocket)
         } else {
