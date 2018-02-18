@@ -57,6 +57,12 @@ yargs
 
       swarm.listen(keypair, socket => {
         console.log('Got connection')
+
+        // Echo server
+        socket.on('data', data => {
+          console.log(`recv[${socket.socket.address().toString()}]:`)
+          socket.write(data)
+        })
       })
     }
   )
@@ -75,6 +81,19 @@ yargs
       swarm.connect(swarmOpts)
         .then(socket => {
           console.log('Connected to swarm')
+          const msg = new Buffer('Hello world')
+          console.log(`send: ${msg.toString()}`)
+          socket.write(msg)
+          socket.once('data', data => {
+            console.log(`recv: ${data.toString()}`)
+            socket.destroy()
+          })
+          socket.on('error', err => {
+            console.error('Socket error', err)
+          })
+          socket.once('close', () => {
+            console.log('Swarm connection closed')
+          })
         })
         .catch(err => {
           console.error('Swarm connect error', err)
