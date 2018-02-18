@@ -66,9 +66,10 @@ yargs
     {},
     opts => {
       const keypair = readKeyPair()
+      const hostPublicKey = Buffer.from(opts.desthash, 'hex')
 
       const swarmOpts = Object.assign({}, keypair, {
-        hostPublicKey: Buffer.from(opts.desthash)
+        hostPublicKey: hostPublicKey
       })
 
       swarm.connect(swarmOpts)

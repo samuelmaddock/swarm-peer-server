@@ -1,5 +1,6 @@
 const NETWORK_TIMEOUT = 15000
 const EncryptedSocket = require('./lib/socket')
+const crypto = require('./lib/crypto')
 
 const sodium = require('sodium-native')
 const discoverySwarm = require('discovery-swarm')
@@ -42,8 +43,16 @@ async function authConnection(socket, opts) {
 }
 
 function listen(opts, connectionHandler) {
-  const discoveryKey = getDiscoveryKey(opts.publicKey)
-  console.log(`Listen ${opts.publicKey.toString('hex')} => ${discoveryKey.toString('hex')}`)
+  let publicKey = opts.publicKey
+  let secretKey = opts.secretKey
+
+  if (opts.convert) {
+    publicKey = crypto.pub2auth(publicKey)
+    secretKey = crypto.secret2auth(secretKey)
+  }
+
+  const discoveryKey = getDiscoveryKey(publicKey)
+  console.log(`Listen ${publicKey.toString('hex')} => ${discoveryKey.toString('hex')}`)
   const swarm = createSwarm({ id: discoveryKey })
 
   // Wait for connections to perform auth handshake with
@@ -55,8 +64,8 @@ function listen(opts, connectionHandler) {
     try {
       console.log(`Attempting to auth...`)
       esocket = await authConnection(socket, {
-        publicKey: opts.publicKey,
-        secretKey: opts.secretKey
+        publicKey: publicKey,
+        secretKey: secretKey
       })
     } catch (e) {
       console.error('Failed to auth peer\n', e)
@@ -73,7 +82,17 @@ function listen(opts, connectionHandler) {
 function connect(opts) {
   return new Promise((resolve, reject) => {
     let timeoutId, timeout, connected
-    const hostPublicKey = opts.hostPublicKey
+
+    let publicKey = opts.publicKey
+    let secretKey = opts.secretKey
+    let hostPublicKey = opts.hostPublicKey
+
+    if (opts.convert) {
+      publicKey = crypto.pub2auth(publicKey)
+      secretKey = crypto.secret2auth(secretKey)
+      hostPublicKey = crypto.pub2auth(hostPublicKey)
+    }
+
     const discoveryKey = getDiscoveryKey(hostPublicKey)
     const swarm = createSwarm({ id: discoveryKey })
 
@@ -107,8 +126,8 @@ function connect(opts) {
         try {
           console.log(`Attempting to auth ${hostPublicKey.toString('hex')}...`)
           esocket = await authConnection(socket, {
-            publicKey: opts.publicKey,
-            secretKey: opts.secretKey,
+            publicKey: publicKey,
+            secretKey: secretKey,
             hostPublicKey
           })
         } catch (e) {
