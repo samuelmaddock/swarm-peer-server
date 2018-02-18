@@ -21,7 +21,7 @@ function generateKeyPair(seed) {
   }
 }
 
-function writeKeyPair(dirpath = __dirname) {
+function writeKeyPair(keypair, dirpath = __dirname) {
   const filepath = path.join(dirpath, KEY_FILENAME)
   fs.writeFileSync(`${filepath}.pub`, keypair.publicKey)
   fs.writeFileSync(filepath, keypair.secretKey)
@@ -45,7 +45,7 @@ yargs
     {},
     opts => {
       const keypair = generateKeyPair(opts.seed)
-      writeKeyPair(opts.path)
+      writeKeyPair(keypair, opts.path)
     }
   )
   .command(
