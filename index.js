@@ -147,6 +147,7 @@ function connect(opts) {
             // TODO: unannounce to DHT
           })
 
+          cleanup()
           resolve(esocket)
         } else {
           esocket.destroy()
