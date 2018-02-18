@@ -159,6 +159,6 @@ function connect(opts) {
 }
 
 module.exports = {
-    listen,
-    connect
+  listen,
+  connect
 }
