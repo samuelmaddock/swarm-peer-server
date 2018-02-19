@@ -4,6 +4,8 @@ A network swarm for creating secure P2P connections over Bittorrent DHT, DNS, an
 
 Uses [discovery-swarm](https://github.com/mafintosh/discovery-swarm) to find and connect peers. Connections use asymmetric encryption and [Elliptic-curve Diffie-Hellman](https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman) to establish a secure communication channel. Clients must know the public key of a peer ahead of time to initiate the connection.
 
+Depends on native modules [libsodium](https://libsodium.org) (via [sodium-native](https://github.com/sodium-friends/sodium-native)) and [libutp](https://github.com/bittorrent/libutp) (via [utp-native](https://github.com/mafintosh/utp-native)).
+
 ```bash
 npm install swarm-server
 ```
