@@ -1,34 +1,38 @@
-export interface EncryptedSocket {
-  write(data: Buffer): void;
-  on(eventName: "data", callback: (data: Buffer) => void): void;
-}
+import { EventEmitter } from 'events'
 
-type DiscoverySwarm = any;
-type Key = Buffer;
+declare namespace SwarmServer {
+  export interface EncryptedSocket extends EventEmitter {
+    write(data: Buffer): void
+    on(eventName: 'data', callback: (data: Buffer) => void): this
+    destroy(): void
+  }
 
-export interface SwarmListenOptions {
-  publicKey: Key;
-  secretKey: Key;
+  type DiscoverySwarm = any
+  type Key = Buffer
 
-  /** Whether the keypair needs to be converted from a signature key to an encryption key. */
-  convert?: boolean;
-}
+  export interface SwarmListenOptions {
+    publicKey: Key
+    secretKey: Key
 
-export interface SwarmConnectOptions {
-  publicKey: Key;
-  secretKey: Key;
-  hostPublicKey: Key;
+    /** Whether the keypair needs to be converted from a signature key to an encryption key. */
+    convert?: boolean
+  }
 
-  /** Whether the keypair needs to be converted from a signature key to an encryption key. */
-  convert?: boolean;
-}
+  export interface SwarmConnectOptions {
+    publicKey: Key
+    secretKey: Key
+    hostPublicKey: Key
 
-interface Swarm {
-  listen(
+    /** Whether the keypair needs to be converted from a signature key to an encryption key. */
+    convert?: boolean
+  }
+
+  export function listen(
     opts: SwarmListenOptions,
-    handler: (socket: EncryptedSocket) => void
-  ): DiscoverySwarm;
-  connect(opts: SwarmConnectOptions): Promise<EncryptedSocket>;
+    handler: (socket: EncryptedSocket, peerKey: Key) => void
+  ): DiscoverySwarm
+
+  export function connect(opts: SwarmConnectOptions): Promise<EncryptedSocket>
 }
 
-export default Swarm;
+export = SwarmServer
