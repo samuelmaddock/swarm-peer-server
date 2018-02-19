@@ -1,4 +1,4 @@
-# swarm-server
+# swarm-peer-server
 
 A network swarm for creating secure P2P connections over Bittorrent DHT, DNS, and mDNS.
 
@@ -7,14 +7,14 @@ Uses [discovery-swarm](https://github.com/mafintosh/discovery-swarm) to find and
 Depends on native modules [libsodium](https://libsodium.org) (via [sodium-native](https://github.com/sodium-friends/sodium-native)) and [libutp](https://github.com/bittorrent/libutp) (via [utp-native](https://github.com/mafintosh/utp-native)).
 
 ```bash
-npm install swarm-server
+npm install swarm-peer-server
 ```
 
 ## Usage
 
 ### Server
 ```js
-var swarm = require('swarm-server')
+var swarm = require('swarm-peer-server')
 
 swarm.listen({
   publicKey: new Buffer('...'),
@@ -30,7 +30,7 @@ swarm.listen({
 
 ### Client
 ```js
-var swarm = require('swarm-server')
+var swarm = require('swarm-peer-server')
 
 var { socket } = await swarm.connect({
   publicKey: new Buffer('...'),

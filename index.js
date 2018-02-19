@@ -1,6 +1,6 @@
 const sodium = require('sodium-native')
 const discoverySwarm = require('discovery-swarm')
-const debug = require('debug')('swarm-server')
+const debug = require('debug')('swarm-peer-server')
 
 const EncryptedSocket = require('./lib/socket')
 const crypto = require('./lib/crypto')

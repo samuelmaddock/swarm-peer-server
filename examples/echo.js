@@ -12,7 +12,7 @@
  * node examples/echo.js connect deadbeafdeadbeafdeadbeafdeadbeaf
  * 
  * # Show debug output
- * DEBUG=swarm-server node examples/echo.js listen
+ * DEBUG=swarm-peer-server node examples/echo.js listen
  */
 
 const fs = require('fs')

@@ -1,4 +1,20 @@
 {
+  "name": "swarm-peer-server",
+  "description": "A network swarm for creating secure P2P connections over Bittorrent DHT, DNS, and mDNS.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelmaddock/swarm-peer-server.git"
+  },
+  "keywords": [
+    "swarm",
+    "dht",
+    "mdns",
+    "p2p"
+  ],
+  "author": "Samuel Maddock",
+  "license": "MIT",
   "dependencies": {
     "debug": "^3.1.0",
     "discovery-swarm": "^4.4.2",
