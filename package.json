@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "dat-swarm-defaults": "^1.0.0",
     "discovery-swarm": "^4.4.2",
     "length-prefixed-stream": "^1.5.1",
     "sodium-encryption": "^1.2.3",
     "sodium-native": "^2.1.4"
   },
   "optionalDependencies": {
+    "dat-swarm-defaults": "^1.0.0",
     "yargs": "^11.0.0"
   }
 }

@@ -10,21 +10,65 @@ declare namespace SwarmServer {
   type DiscoverySwarm = any
   type Key = Buffer
 
-  export interface SwarmListenOptions {
-    publicKey: Key
-    secretKey: Key
+  /**
+   * @see https://github.com/maxogden/discovery-channel
+   */
+  interface DiscoveryChannelOptions {
+    /**
+     * DNS discovery options.
+     * If false will disable dns discovery, any other value type will be passed to the dns-discovery constructor.
+     * @default undefined
+     */
+    dns: {
+      server: string[]
+      domain: string
+    } | false;
 
-    /** Whether the keypair needs to be converted from a signature key to an encryption key. */
-    convert?: boolean
+    /**
+     * DHT discovery options.
+     * If false will disable dht discovery, any other value type will be passed to the bittorrent-dht constructor.
+     * @default undefined
+     */
+    dht: {
+      bootstrap: string[]
+    } | false;
+
+    /**
+     * Provide a custom hash function to hash ids before they are stored in the dht / on dns servers.
+     * @default sha1
+     */
+    hash?: (id: Buffer) => Buffer | false;
   }
 
-  export interface SwarmConnectOptions {
+  /**
+   * @see https://github.com/mafintosh/discovery-swarm#api
+   */
+  interface DiscoverySwarmOptions extends DiscoveryChannelOptions {
+    id?: Buffer | string;
+    stream?: any;
+    connect?: any;
+    utp?: boolean;
+    tcp?: boolean;
+    maxConnections?: number;
+    whitelist?: string[];
+  }
+
+  interface CommonOptions {
     publicKey: Key
     secretKey: Key
-    hostPublicKey: Key
 
     /** Whether the keypair needs to be converted from a signature key to an encryption key. */
     convert?: boolean
+
+    /** Network port */
+    port?: number
+  }
+
+  export interface SwarmListenOptions extends CommonOptions, DiscoverySwarmOptions {
+  }
+
+  export interface SwarmConnectOptions extends CommonOptions, DiscoverySwarmOptions {
+    hostPublicKey: Key
   }
 
   export function listen(

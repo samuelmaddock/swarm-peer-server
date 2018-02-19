@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const yargs = require('yargs')
 const sodium = require('sodium-native')
+const swarmDefaults = require('dat-swarm-defaults')
 
 const swarm = require('../index.js')
 
@@ -55,7 +56,10 @@ yargs
     opts => {
       const keypair = readKeyPair()
 
-      swarm.listen(keypair, socket => {
+      swarm.listen({
+        ...keypair,
+        ...swarmDefaults({hash: false})
+      }, socket => {
         console.log('Got connection')
 
         // Echo server
@@ -75,7 +79,7 @@ yargs
       const keypair = readKeyPair()
       const hostPublicKey = Buffer.from(opts.desthash, 'hex')
 
-      const swarmOpts = Object.assign({}, keypair, {
+      const swarmOpts = Object.assign({}, swarmDefaults({ hash: false }), keypair, {
         hostPublicKey: hostPublicKey
       })
 
