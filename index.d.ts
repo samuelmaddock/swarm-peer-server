@@ -69,6 +69,7 @@ declare namespace SwarmServer {
 
   export interface SwarmConnectOptions extends CommonOptions, DiscoverySwarmOptions {
     hostPublicKey: Key
+    timeout?: number
   }
 
   export function listen(

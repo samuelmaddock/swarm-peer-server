@@ -171,7 +171,7 @@ function connect(opts) {
       cleanup()
       timeout = true
       reject('Timeout connecting to swarm')
-    }, NETWORK_TIMEOUT)
+    }, opts.timeout || NETWORK_TIMEOUT)
   })
 }
 
