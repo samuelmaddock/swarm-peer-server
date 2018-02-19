@@ -1,3 +1,20 @@
+/**
+ * Echo client/server example.
+ * 
+ * Usage:
+ * # MUST generate keypair first
+ * node examples/echo.js gen-keypair
+ * 
+ * # Create listen server which echos any messages received
+ * node examples/echo.js listen
+ * 
+ * # Connect to server, send message, receive message, then disconnects
+ * node examples/echo.js connect deadbeafdeadbeafdeadbeafdeadbeaf
+ * 
+ * # Show debug output
+ * DEBUG=swarm-server node examples/echo.js listen
+ */
+
 const fs = require('fs')
 const path = require('path')
 const yargs = require('yargs')
