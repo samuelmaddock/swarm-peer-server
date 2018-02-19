@@ -43,6 +43,12 @@ const data = new Buffer('hello world')
 socket.write(data)
 ```
 
+### Examples
+
+```bash
+examples/echo.js # CLI echo server
+```
+
 ## API
 
 #### `var sw = swarm.listen(opts)`
@@ -58,7 +64,7 @@ Create a new swarm server. Options include:
 ```
 [1] https://download.libsodium.org/doc/advanced/ed25519-curve25519.html
 
-For full list of opts take a look at [discovery-swarm](https://github.com/mafintosh/discovery-swarm/blob/master/README.md#var-sw--swarmopts) or the [TypeScript definitions](index.d.ts).
+For full list of options take a look at [discovery-swarm](https://github.com/mafintosh/discovery-swarm/blob/master/README.md#var-sw--swarmopts) or the [TypeScript definitions](index.d.ts).
 
 #### `swarm.connect(opts, (socket, peerKey, info) => {})`
 
