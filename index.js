@@ -21,7 +21,7 @@ function createSwarm(opts) {
   const swarm = discoverySwarm(opts)
   swarm.on('error', () => swarm.listen(0))
   swarm.listen(opts.port || DEFAULT_PORT)
-  swarm.join(opts.id, { announce: true })
+  swarm.join(opts.name, { announce: true })
   return swarm
 }
 
@@ -48,7 +48,7 @@ function listen(opts, connectionHandler) {
   }
 
   const discoveryKey = getDiscoveryKey(publicKey)
-  const swarmOpts = Object.assign({}, opts, { id: discoveryKey })
+  const swarmOpts = Object.assign({}, opts, { name: discoveryKey })
   const swarm = createSwarm(swarmOpts)
   debug(`Listen ${publicKey.toString('hex')}`)
 
@@ -91,7 +91,7 @@ function connect(opts) {
     }
 
     const discoveryKey = getDiscoveryKey(hostPublicKey)
-    const swarmOpts = Object.assign({}, opts, { id: discoveryKey })
+    const swarmOpts = Object.assign({}, opts, { name: discoveryKey })
     const swarm = createSwarm(swarmOpts)
 
     debug(`Connecting to remote swarm ${hostPublicKey.toString('hex')}`)
@@ -157,7 +157,7 @@ function connect(opts) {
     }
 
     // Wait for connections and attempt to auth with host
-    const onConnection = async (socket, info) => {
+    const onConnection = (socket, info) => {
       const address = socket.address().address
       debug(`Remote swarm connection ${address}`)
 
