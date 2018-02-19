@@ -53,6 +53,18 @@ declare namespace SwarmServer {
     whitelist?: string[];
   }
 
+  /**
+   * @see https://github.com/mafintosh/discovery-swarm#swonconnection-functionconnection-info---
+   */
+  interface ConnectionInfo {
+    type: 'tcp' | 'utp'
+    initiator: boolean
+    channel?: Buffer
+    host: string
+    port: number
+    id: Buffer
+  }
+
   interface CommonOptions {
     publicKey: Key
     secretKey: Key
@@ -77,7 +89,10 @@ declare namespace SwarmServer {
     handler: (socket: EncryptedSocket, peerKey: Key) => void
   ): DiscoverySwarm
 
-  export function connect(opts: SwarmConnectOptions): Promise<EncryptedSocket>
+  export function connect(opts: SwarmConnectOptions): Promise<{
+    socket: EncryptedSocket,
+    info: ConnectionInfo
+  }>
 }
 
 export = SwarmServer

@@ -53,7 +53,7 @@ function listen(opts, connectionHandler) {
   debug(`Listen ${publicKey.toString('hex')}`)
 
   // Wait for connections to perform auth handshake with
-  swarm.on('connection', async socket => {
+  swarm.on('connection', async (socket, info) => {
     const address = socket.address().address
     debug(`Local swarm connection ${address}`)
 
@@ -70,7 +70,7 @@ function listen(opts, connectionHandler) {
     }
 
     debug(`Authed with peer: ${address}`)
-    connectionHandler(esocket, esocket.peerKey)
+    connectionHandler(esocket, esocket.peerKey, info)
   })
 
   return swarm
@@ -118,8 +118,9 @@ function connect(opts) {
     async function attemptConnect() {
       connecting = true
 
-      let socket
-      while (!connected && !timeout && (socket = queue.shift())) {
+      let conn
+      while (!connected && !timeout && (conn = queue.shift())) {
+        const [socket, info] = conn
         let esocket
         try {
           debug(`Attempting to auth ${hostPublicKey.toString('hex')}...`)
@@ -146,7 +147,7 @@ function connect(opts) {
 
           connected = true
           cleanup()
-          resolve(esocket)
+          resolve({ socket: esocket, info: info })
         } else {
           esocket.destroy()
         }
@@ -156,11 +157,11 @@ function connect(opts) {
     }
 
     // Wait for connections and attempt to auth with host
-    const onConnection = async socket => {
+    const onConnection = async (socket, info) => {
       const address = socket.address().address
       debug(`Remote swarm connection ${address}`)
 
-      queue.push(socket)
+      queue.push([socket, info])
 
       if (!connecting) {
         attemptConnect()

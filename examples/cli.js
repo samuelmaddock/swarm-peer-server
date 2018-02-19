@@ -57,7 +57,7 @@ yargs
       const keypair = readKeyPair()
 
       const swarmOpts = Object.assign({}, swarmDefaults({ hash: false }), keypair)
-      swarm.listen(swarmOpts, socket => {
+      swarm.listen(swarmOpts, (socket, peerKey, info) => {
         console.log('Got connection')
 
         // Echo server
@@ -82,8 +82,9 @@ yargs
       })
 
       swarm.connect(swarmOpts)
-        .then(socket => {
+        .then(conn => {
           console.log('Connected to swarm')
+          const { socket, info } = conn
           const msg = new Buffer('Hello world')
           console.log(`send: ${msg}`)
           socket.write(msg)
