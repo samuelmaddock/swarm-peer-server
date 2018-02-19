@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "debug": "^3.1.0",
     "discovery-swarm": "^4.4.2",
     "length-prefixed-stream": "^1.5.1",
     "sodium-encryption": "^1.2.3",

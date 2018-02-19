@@ -1,5 +1,6 @@
 const sodium = require('sodium-native')
 const discoverySwarm = require('discovery-swarm')
+const debug = require('debug')('swarm-server')
 
 const EncryptedSocket = require('./lib/socket')
 const crypto = require('./lib/crypto')
@@ -49,26 +50,26 @@ function listen(opts, connectionHandler) {
   const discoveryKey = getDiscoveryKey(publicKey)
   const swarmOpts = Object.assign({}, opts, { id: discoveryKey })
   const swarm = createSwarm(swarmOpts)
-  console.log(`Listen ${publicKey.toString('hex')}`)
+  debug(`Listen ${publicKey.toString('hex')}`)
 
   // Wait for connections to perform auth handshake with
   swarm.on('connection', async socket => {
     const address = socket.address().address
-    console.log(`Local swarm connection ${address}`)
+    debug(`Local swarm connection ${address}`)
 
     let esocket
     try {
-      console.log(`Attempting to auth...`)
+      debug(`Attempting to auth...`)
       esocket = await authConnection(socket, {
         publicKey: publicKey,
         secretKey: secretKey
       })
     } catch (e) {
-      console.error('Failed to auth peer\n', e)
+      debug('Failed to auth peer\n', e)
       return
     }
 
-    console.log(`AUTHED WITH PEER! ${address}`)
+    debug(`Authed with peer: ${address}`)
     connectionHandler(esocket, esocket.peerKey)
   })
 
@@ -93,7 +94,7 @@ function connect(opts) {
     const swarmOpts = Object.assign({}, opts, { id: discoveryKey })
     const swarm = createSwarm(swarmOpts)
 
-    console.log(`Connecting to remote swarm ${hostPublicKey.toString('hex')}`)
+    debug(`Connecting to remote swarm ${hostPublicKey.toString('hex')}`)
 
     let queue = []
     let connecting = false
@@ -121,26 +122,26 @@ function connect(opts) {
       while (!connected && !timeout && (socket = queue.shift())) {
         let esocket
         try {
-          console.log(`Attempting to auth ${hostPublicKey.toString('hex')}...`)
+          debug(`Attempting to auth ${hostPublicKey.toString('hex')}...`)
           esocket = await authConnection(socket, {
             publicKey: publicKey,
             secretKey: secretKey,
             hostPublicKey
           })
         } catch (e) {
-          console.error('Failed to auth peer\n', e)
+          debug('Failed to auth peer\n', e)
           continue
         }
 
         const address = socket.address().address
-        console.log(`AUTHED WITH HOST! ${address}`)
+        debug(`Authed with host: ${address}`)
 
         if (!timeout && !connected) {
-
           // close swarm when we're done with the socket
           esocket.once('close', () => {
             swarm.close()
             // TODO: unannounce to DHT
+            // https://github.com/webtorrent/bittorrent-dht/pull/184
           })
 
           connected = true
@@ -157,7 +158,7 @@ function connect(opts) {
     // Wait for connections and attempt to auth with host
     const onConnection = async socket => {
       const address = socket.address().address
-      console.log(`Remote swarm connection ${address}`)
+      debug(`Remote swarm connection ${address}`)
 
       queue.push(socket)
 
