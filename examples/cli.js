@@ -56,10 +56,8 @@ yargs
     opts => {
       const keypair = readKeyPair()
 
-      swarm.listen({
-        ...keypair,
-        ...swarmDefaults({hash: false})
-      }, socket => {
+      const swarmOpts = Object.assign({}, swarmDefaults({ hash: false }), keypair)
+      swarm.listen(swarmOpts, socket => {
         console.log('Got connection')
 
         // Echo server

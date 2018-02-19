@@ -47,8 +47,9 @@ function listen(opts, connectionHandler) {
   }
 
   const discoveryKey = getDiscoveryKey(publicKey)
-  console.log(`Listen ${publicKey.toString('hex')} => ${discoveryKey.toString('hex')}`)
-  const swarm = createSwarm({ id: discoveryKey, ...opts })
+  const swarmOpts = Object.assign({}, opts, { id: discoveryKey })
+  const swarm = createSwarm(swarmOpts)
+  console.log(`Listen ${publicKey.toString('hex')}`)
 
   // Wait for connections to perform auth handshake with
   swarm.on('connection', async socket => {
@@ -89,7 +90,8 @@ function connect(opts) {
     }
 
     const discoveryKey = getDiscoveryKey(hostPublicKey)
-    const swarm = createSwarm({ id: discoveryKey, ...opts })
+    const swarmOpts = Object.assign({}, opts, { id: discoveryKey })
+    const swarm = createSwarm(swarmOpts)
 
     console.log(`Connecting to remote swarm ${hostPublicKey.toString('hex')}`)
 
