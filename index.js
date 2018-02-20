@@ -27,7 +27,7 @@ function createSwarm(opts) {
 
 async function authConnection(socket, opts) {
   return new Promise((resolve, reject) => {
-    const esocket = new EncryptedSocket(socket, opts.publicKey, opts.secretKey)
+    const esocket = new EncryptedSocket(socket, opts.publicKey, opts.secretKey, opts.ed25519PublicKey, opts.ed25519SecretKey)
 
     esocket.once('connection', () => resolve(esocket))
     esocket.once('error', () => {})
@@ -50,7 +50,7 @@ function listen(opts, connectionHandler) {
   const discoveryKey = getDiscoveryKey(publicKey)
   const swarmOpts = Object.assign({}, opts, { name: discoveryKey })
   const swarm = createSwarm(swarmOpts)
-  debug(`Listen ${publicKey.toString('hex')}`)
+  debug(`Listen ${opts.publicKey.toString('hex')}`)
 
   // Wait for connections to perform auth handshake with
   swarm.on('connection', async (socket, info) => {
@@ -60,17 +60,22 @@ function listen(opts, connectionHandler) {
     let esocket
     try {
       debug(`Attempting to auth...`)
-      esocket = await authConnection(socket, {
+      const authOpts = {
         publicKey: publicKey,
-        secretKey: secretKey
-      })
+        secretKey: secretKey,
+        ed25519PublicKey: opts.convert && opts.publicKey,
+        ed25519SecretKey: opts.convert && opts.secretKey
+      }
+      esocket = await authConnection(socket, authOpts)
     } catch (e) {
       debug('Failed to auth peer\n', e)
       return
     }
 
-    debug(`Authed with peer: ${address}`)
-    connectionHandler(esocket, esocket.peerKey, info)
+    let peerKey = opts.convert ? esocket.ed25519PeerKey : esocket.peerKey
+
+    debug(`Authed with peer: ${address} [${peerKey.toString('hex')}]`)
+    connectionHandler(esocket, peerKey, info)
   })
 
   return swarm
@@ -124,11 +129,14 @@ function connect(opts) {
         let esocket
         try {
           debug(`Attempting to auth ${hostPublicKey.toString('hex')}...`)
-          esocket = await authConnection(socket, {
+          const authOpts = {
+            hostPublicKey,
             publicKey: publicKey,
             secretKey: secretKey,
-            hostPublicKey
-          })
+            ed25519PublicKey: opts.convert && opts.publicKey,
+            ed25519SecretKey: opts.convert && opts.secretKey
+          }
+          esocket = await authConnection(socket, authOpts)
         } catch (e) {
           debug('Failed to auth peer\n', e)
           continue
