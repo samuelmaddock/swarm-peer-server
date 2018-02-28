@@ -105,7 +105,7 @@ function connect(opts) {
         timeoutId = null
       }
 
-      queue.forEach(socket => socket.destroy())
+      queue.forEach(conn => conn.socket.destroy())
       queue = []
 
       swarm.removeListener('connection', onConnection)
@@ -120,7 +120,7 @@ function connect(opts) {
 
       let conn
       while (!connected && !timeout && (conn = queue.shift())) {
-        const [socket, info] = conn
+        const { socket, info } = conn
         let esocket
         try {
           debug(`Attempting to auth ${hostPublicKey.toString('hex')}...`)
@@ -161,7 +161,7 @@ function connect(opts) {
       const address = socket.address().address
       debug(`Remote swarm connection ${address}`)
 
-      queue.push([socket, info])
+      queue.push({ socket, info })
 
       if (!connecting) {
         attemptConnect()
