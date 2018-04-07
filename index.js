@@ -179,5 +179,6 @@ function connect(opts) {
 
 module.exports = {
   listen,
-  connect
+  connect,
+  EncryptedSocket
 }

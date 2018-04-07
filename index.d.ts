@@ -1,14 +1,18 @@
 import { EventEmitter } from 'events'
+import { Duplex } from 'stream';
 
 declare namespace SwarmServer {
-  export interface EncryptedSocket extends EventEmitter {
-    write(data: Buffer): void
-    on(eventName: 'data', callback: (data: Buffer) => void): this
-    destroy(): void
-  }
-
   type DiscoverySwarm = any
   type Key = Buffer
+
+  export interface EncryptedSocket extends EventEmitter {
+    new(socket: Duplex, publicKey: Key, secretKey: Key): EncryptedSocket
+    connect(hostPublicKey?: Key): void
+    write(data: Buffer): void
+    destroy(): void
+    on(eventName: 'data', callback: (data: Buffer) => void): this
+    on(eventName: 'connection', callback: () => void): this
+  }
 
   /**
    * @see https://github.com/maxogden/discovery-channel
@@ -93,6 +97,8 @@ declare namespace SwarmServer {
     socket: EncryptedSocket,
     info: ConnectionInfo
   }>
+
+  export const EncryptedSocket: EncryptedSocket
 }
 
 export = SwarmServer
