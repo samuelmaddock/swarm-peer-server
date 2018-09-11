@@ -72,10 +72,11 @@ yargs
     {},
     opts => {
       const keypair = readKeyPair()
+      console.log(`Listening at ${keypair.publicKey.toString('hex')}`)
 
       const swarmOpts = Object.assign({}, swarmDefaults({ hash: false }), keypair)
       swarm.listen(swarmOpts, (socket, peerKey, info) => {
-        console.log('Got connection')
+        console.log(`Got connection from ${peerKey.toString('hex')}`)
 
         // Echo server
         socket.on('data', data => {
