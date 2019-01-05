@@ -6,13 +6,13 @@ const EncryptedSocket = require('./lib/socket')
 const crypto = require('./lib/crypto')
 
 const NETWORK_TIMEOUT = 15000
-const DISCOVERY_HASH = new Buffer('swarmserver')
+const DISCOVERY_HASH = Buffer.from('swarmserver')
 
 // +1 from Dat protocol default to reduce conflict
 const DEFAULT_PORT = 3283
 
 function getDiscoveryKey(tree) {
-  var digest = new Buffer(32)
+  var digest = Buffer.alloc(32)
   sodium.crypto_generichash(digest, DISCOVERY_HASH, tree)
   return digest
 }

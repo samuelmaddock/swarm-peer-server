@@ -17,8 +17,8 @@ npm install swarm-peer-server
 var swarm = require('swarm-peer-server')
 
 swarm.listen({
-  publicKey: new Buffer('...'),
-  secretKey: new Buffer('...')
+  publicKey: Buffer.from('...'),
+  secretKey: Buffer.from('...')
 }, (socket, peerKey, info) => {
   console.log('New authenticated connection')
   socket.once('data', data => {
@@ -33,13 +33,13 @@ swarm.listen({
 var swarm = require('swarm-peer-server')
 
 var { socket } = await swarm.connect({
-  publicKey: new Buffer('...'),
-  secretKey: new Buffer('...'),
-  hostPublicKey: new Buffer('...')
+  publicKey: Buffer.from('...'),
+  secretKey: Buffer.from('...'),
+  hostPublicKey: Buffer.from('...')
 })
 
 console.log('Established connection')
-const data = new Buffer('hello world')
+const data = Buffer.from('hello world')
 socket.write(data)
 ```
 

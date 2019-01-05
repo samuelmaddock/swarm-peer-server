@@ -27,8 +27,8 @@ const KEY_FILENAME = 'key'
 
 /** Generate authenticated encryption keypair. */
 function generateKeyPair(seed) {
-  let publicKey = new Buffer(sodium.crypto_box_PUBLICKEYBYTES)
-  let secretKey = new Buffer(sodium.crypto_box_SECRETKEYBYTES)
+  let publicKey = Buffer.alloc(sodium.crypto_box_PUBLICKEYBYTES)
+  let secretKey = Buffer.alloc(sodium.crypto_box_SECRETKEYBYTES)
 
   if (seed) sodium.crypto_box_seed_keypair(publicKey, secretKey, seed)
   else sodium.crypto_box_keypair(publicKey, secretKey)
@@ -103,7 +103,7 @@ yargs
         .then(conn => {
           console.log('Connected to swarm')
           const { socket, info } = conn
-          const msg = new Buffer('Hello world')
+          const msg = Buffer.from('Hello world')
           console.log(`send: ${msg}`)
           socket.write(msg)
           socket.once('data', data => {
