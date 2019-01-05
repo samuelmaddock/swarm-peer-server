@@ -16,9 +16,10 @@ bencode@^1.0.0:
   dependencies:
     safe-buffer "^5.1.1"
 
-bittorrent-dht@^7.2.1:
+bittorrent-dht@^7.10.0:
   version "7.10.0"
   resolved "https://registry.yarnpkg.com/bittorrent-dht/-/bittorrent-dht-7.10.0.tgz#c5d47ddb21b0003a4ce22b11202a505b350ac0ff"
+  integrity sha512-fvb6M58Ceiv/S94nu6zeaiMoJvUYOeIqRbgaClm+kJTzCAqJPtAR/31pXNYB5iEReOoKqQB5zY33gY0W6ZRWQQ==
   dependencies:
     bencode "^1.0.0"
     buffer-equals "^1.0.3"
@@ -39,13 +40,21 @@ buffer-equals@^1.0.3, buffer-equals@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/buffer-equals/-/buffer-equals-1.0.4.tgz#0353b54fd07fd9564170671ae6f66b9cf10d27f5"
 
-buffer-indexof@^1.0.0:
+buffer-from@^1.0.0:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/buffer-indexof/-/buffer-indexof-1.1.1.tgz#52fabcc6a606d1a00302802648ef68f639da268c"
+  resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
+  integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
 camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
+
+circular-append-file@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/circular-append-file/-/circular-append-file-1.0.1.tgz#5d218c5b04556cd1d2eeee697691dddd206c514b"
+  integrity sha512-BUDFvrBTCdeVhg9E05PX4XgMegk6xWB69uGwyuATEg7PMfa9lGU1mzFSK0xWNW2O0i9CAQHN0oIdXI/kI2hPkg==
+  dependencies:
+    multistream "^2.1.0"
 
 cliui@^4.0.0:
   version "4.1.0"
@@ -81,9 +90,10 @@ dat-swarm-defaults@^1.0.0:
   dependencies:
     xtend "^4.0.1"
 
-debug@^2.3.2, debug@^2.4.5:
+debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
+  integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
   dependencies:
     ms "2.0.0"
 
@@ -97,61 +107,62 @@ decamelize@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-discovery-channel@^5.3.0:
-  version "5.4.7"
-  resolved "https://registry.yarnpkg.com/discovery-channel/-/discovery-channel-5.4.7.tgz#8139652dcd5935423f7aaa68d8dc6030ae354d91"
+discovery-channel@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/discovery-channel/-/discovery-channel-5.5.1.tgz#9af6fc7f8cecdff40dbe4f13a49463718d4cd676"
+  integrity sha512-EEmZQFE0PiOsJj7G3KVCwFGbYs4QchUvzA91iHtZ6HfkIqfBEDSTGLygJrUlY1Tr77WDV+qZVrZuNghHxSL/vw==
   dependencies:
-    bittorrent-dht "^7.2.1"
-    debug "^2.3.2"
-    dns-discovery "^5.3.4"
-    pretty-hash "^1.0.0"
+    bittorrent-dht "^7.10.0"
+    buffer-from "^1.0.0"
+    debug "^2.6.9"
+    dns-discovery "^6.0.1"
+    pretty-hash "^1.0.1"
     thunky "^0.1.0"
 
-discovery-swarm@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/discovery-swarm/-/discovery-swarm-4.4.2.tgz#5d3160a46019e50e874195765df7d601ee55a813"
+discovery-swarm@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/discovery-swarm/-/discovery-swarm-5.1.3.tgz#38c12d615c74f4ccf54c37847e595773173b03a4"
+  integrity sha512-JmwQNNvf6fZUiuUOpksv5aKTkWONlxZD4l3TuFwqibZYcoQfIhsVSQOodalJIzRQxCKgXAkMrh6aH3JzkOv1kw==
   dependencies:
-    buffer-equals "^1.0.3"
     connections "^1.4.2"
-    debug "^2.4.5"
-    discovery-channel "^5.3.0"
+    debug "^3.1.0"
+    discovery-channel "^5.5.1"
     length-prefixed-message "^3.0.3"
-    pump "^1.0.1"
+    pump "^3.0.0"
     to-buffer "^1.0.1"
   optionalDependencies:
-    utp-native "^1.2.2"
+    utp-native "^1.7.2"
 
-dns-discovery@^5.3.4:
-  version "5.6.1"
-  resolved "https://registry.yarnpkg.com/dns-discovery/-/dns-discovery-5.6.1.tgz#514aed6a76c6b73c821fbd1006a08723ad67c74e"
+dns-discovery@^6.0.1:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/dns-discovery/-/dns-discovery-6.2.3.tgz#47d8bc0f639ed1f3c09897a133a96bc4106fda15"
+  integrity sha512-ZULG1R5J9QHZfaXo5XFGVG22LIcnZorbEa7f83FYgCGDaQrVfyVmty3Z89OvBLpCPetwW+LzjCcT60ekhbQ+9g==
   dependencies:
-    debug "^2.3.2"
-    dns-socket "^1.4.2"
-    dns-txt "^2.0.1"
+    circular-append-file "^1.0.1"
+    debug "^2.6.9"
+    dns-socket "^3.0.0"
     lru "^2.0.0"
     minimist "^1.2.0"
-    multicast-dns "^6.0.0"
-    network-address "^1.1.0"
+    multicast-dns "^7.1.1"
+    network-address "^1.1.2"
+    pump "^3.0.0"
+    speedometer "^1.0.0"
     unordered-set "^1.1.0"
 
-dns-packet@^1.1.0, dns-packet@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/dns-packet/-/dns-packet-1.3.1.tgz#12aa426981075be500b910eedcd0b47dd7deda5a"
+dns-packet@^4.0.0, dns-packet@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/dns-packet/-/dns-packet-4.2.0.tgz#3fd6f5ff5a4ec3194ed0b15312693ffe8776b343"
+  integrity sha512-bn1AKpfkFbm0MIioOMHZ5qJzl2uypdBwI4nYNsqvhjsegBhcKJUlCrMPWLx6JEezRjxZmxhtIz/FkBEur2l8Cw==
   dependencies:
-    ip "^1.1.0"
-    safe-buffer "^5.0.1"
+    ip "^1.1.5"
+    safe-buffer "^5.1.1"
 
-dns-socket@^1.4.2:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/dns-socket/-/dns-socket-1.6.3.tgz#5268724fad4aa46ad9c5ca4ffcd16e1de5342aab"
+dns-socket@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/dns-socket/-/dns-socket-3.0.0.tgz#3418a3c6309656ebdb3eb0a941811a4fb0b828c5"
+  integrity sha512-M0WkByoJ/mTm+HtwBQLsRJPe5uGIC/lYVOp+s6ZzhbZ5iq4GxjFyxYPQhB85dgCLvVb43aJQXHDC9aUgyKGc/Q==
   dependencies:
-    dns-packet "^1.1.0"
-
-dns-txt@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/dns-txt/-/dns-txt-2.0.2.tgz#b91d806f5d27188e4ab3e7d107d881a1cc4642b6"
-  dependencies:
-    buffer-indexof "^1.0.0"
+    dns-packet "^4.1.0"
 
 end-of-stream@^1.1.0:
   version "1.4.1"
@@ -197,9 +208,10 @@ invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
 
-ip@^1.1.0:
+ip@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
+  integrity sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo=
 
 is-fullwidth-code-point@^1.0.0:
   version "1.0.0"
@@ -261,9 +273,10 @@ length-prefixed-message@^3.0.3:
   dependencies:
     varint "^3.0.1"
 
-length-prefixed-stream@^1.5.1:
+length-prefixed-stream@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/length-prefixed-stream/-/length-prefixed-stream-1.6.0.tgz#6aeeecf38a337172ea0472250e90f5e15b8b2334"
+  integrity sha512-gsJvrb5giDqil/ScQ7fEoplsI2Ch4DwnvnfTW2EGl9KBW6Ekzn8JSNESObqNAeZD8HkSjEMvc5XjhuB66fsSZQ==
   dependencies:
     buffer-alloc-unsafe "^1.0.0"
     readable-stream "^2.0.0"
@@ -313,20 +326,30 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-multicast-dns@^6.0.0:
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/multicast-dns/-/multicast-dns-6.2.3.tgz#a0ec7bd9055c4282f790c3c82f4e28db3b31b229"
+multicast-dns@^7.1.1:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/multicast-dns/-/multicast-dns-7.2.0.tgz#7aa49a7efba931a346011aa02e7d1c314a65ac77"
+  integrity sha512-Tu2QORGOFANB124NWQ/JTRhMf/ODouVLEuvu5Dz8YWEU55zQgRgFGnBHfIh5PbfNDAuaRl7yLB+pgWhSqVxi2Q==
   dependencies:
-    dns-packet "^1.3.1"
+    dns-packet "^4.0.0"
     thunky "^1.0.2"
+
+multistream@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/multistream/-/multistream-2.1.1.tgz#629d3a29bd76623489980d04519a2c365948148c"
+  integrity sha512-xasv76hl6nr1dEy3lPvy7Ej7K/Lx3O/FCvwge8PeVJpciPPoNCbaANcNiBug3IpdvTveZUcAV0DJzdnUDMesNQ==
+  dependencies:
+    inherits "^2.0.1"
+    readable-stream "^2.0.5"
 
 nan@^2.4.0, nan@^2.5.1:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
-network-address@^1.1.0:
+network-address@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/network-address/-/network-address-1.1.2.tgz#4aa7bfd43f03f0b81c9702b13d6a858ddb326f3e"
+  integrity sha1-Sqe/1D8D8LgclwKxPWqFjdsybz4=
 
 node-gyp-build@^3.0.0:
   version "3.2.2"
@@ -384,9 +407,10 @@ path-key@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
-pretty-hash@^1.0.0:
+pretty-hash@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/pretty-hash/-/pretty-hash-1.0.1.tgz#16e0579188def56bdb565892bcd05a5d65324807"
+  integrity sha1-FuBXkYje9WvbVliSvNBaXWUySAc=
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
@@ -396,9 +420,10 @@ pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
-pump@^1.0.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.3.tgz#5dfe8311c33bbf6fc18261f9f34702c47c08a954"
+pump@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/pump/-/pump-3.0.0.tgz#b4a2116815bde2f4e1ea602354e8c75565107a64"
+  integrity sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==
   dependencies:
     end-of-stream "^1.1.0"
     once "^1.3.1"
@@ -409,7 +434,7 @@ randombytes@^2.0.3, randombytes@^2.0.5:
   dependencies:
     safe-buffer "^5.1.0"
 
-readable-stream@^2.0.0:
+readable-stream@^2.0.0, readable-stream@^2.0.5:
   version "2.3.6"
   resolved "http://registry.npmjs.org/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:
@@ -477,13 +502,19 @@ simple-sha1@^2.1.0:
   dependencies:
     rusha "^0.8.1"
 
-sodium-native@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-2.1.4.tgz#f31e20992695ce4295a4324e08f64ee203baf0c6"
+sodium-native@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-2.2.4.tgz#ef341da82e1e2311bb527a2c73dfbcc819fc18bc"
+  integrity sha512-zE3lJAEN9R/XzJmNUqfyqL3vAnES9rFuyeq5ouHmCOdkVcY5UKbCcl7eUyZ+LG4RcqVfx8CAcgwv9HRpgoNrlg==
   dependencies:
     ini "^1.3.5"
     nan "^2.4.0"
     node-gyp-build "^3.0.0"
+
+speedometer@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/speedometer/-/speedometer-1.1.0.tgz#a30b13abda45687a1a76977012c060f2ac8a7934"
+  integrity sha512-z/wAiTESw2XVPssY2XRcme4niTc4S5FkkJ4gknudtVoc33Zil8TdTxHy5torRcgqMqksJV2Yz8HQcvtbsnw0mQ==
 
 string-width@^1.0.1:
   version "1.0.2"
@@ -548,9 +579,10 @@ util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
-utp-native@^1.2.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/utp-native/-/utp-native-1.6.2.tgz#ab3c58fd6bd5522ef2d85aabd3924166942b634d"
+utp-native@^1.7.2:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/utp-native/-/utp-native-1.7.3.tgz#c829724995bfcd9dfb3027389e5c0bf8ddaa0bf2"
+  integrity sha512-vRAKaS8WcYNgzbxyH2LdheqgL4sQLis8LXl7r/mN+O4mpWlUpoCsTtietxepLrft2q0TFA2gaIvSWN1iRkzW/w==
   dependencies:
     nan "^2.5.1"
     node-gyp-build "^3.0.0"
