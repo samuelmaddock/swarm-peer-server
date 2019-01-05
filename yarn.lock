@@ -477,21 +477,6 @@ simple-sha1@^2.1.0:
   dependencies:
     rusha "^0.8.1"
 
-sodium-encryption@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/sodium-encryption/-/sodium-encryption-1.2.3.tgz#eb69ce283867960930d6526ea5800c7e04a8906e"
-  dependencies:
-    tweetnacl "^0.14.3"
-  optionalDependencies:
-    sodium-native "^1.5.1"
-
-sodium-native@^1.5.1:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-1.10.3.tgz#3fab41e91cc349bc59b89d7f7039389e62401549"
-  dependencies:
-    nan "^2.4.0"
-    node-gyp-build "^3.0.0"
-
 sodium-native@^2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-2.1.4.tgz#f31e20992695ce4295a4324e08f64ee203baf0c6"
@@ -554,10 +539,6 @@ thunky@^1.0.2:
 to-buffer@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/to-buffer/-/to-buffer-1.1.0.tgz#375bc03edae5c35a8fa0b3fe95a1f3985db1dcfa"
-
-tweetnacl@^0.14.3:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
 unordered-set@^1.1.0:
   version "1.1.0"
