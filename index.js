@@ -1,4 +1,4 @@
-const sodium = require('sodium-native')
+const sodium = require('libsodium-wrappers')
 const discoverySwarm = require('discovery-swarm')
 const debug = require('debug')('swarm-peer-server')
 
@@ -6,15 +6,17 @@ const EncryptedSocket = require('./lib/socket')
 const crypto = require('./lib/crypto')
 
 const NETWORK_TIMEOUT = 15000
-const DISCOVERY_HASH = Buffer.from('swarmserver')
+const DISCOVERY_HASH = 'swarmserver'
 
 // +1 from Dat protocol default to reduce conflict
 const DEFAULT_PORT = 3283
 
+// :( https://github.com/jedisct1/libsodium/issues/672
+process.removeAllListeners('unhandledRejection')
+
 function getDiscoveryKey(tree) {
-  var digest = Buffer.alloc(32)
-  sodium.crypto_generichash(digest, DISCOVERY_HASH, tree)
-  return digest
+  const digest = sodium.crypto_generichash(32, DISCOVERY_HASH, tree)
+  return Buffer.from(digest)
 }
 
 function createSwarm(opts) {
@@ -38,7 +40,9 @@ async function authConnection(socket, opts) {
   })
 }
 
-function listen(opts, connectionHandler) {
+async function listen(opts, connectionHandler) {
+  await sodium.ready
+  
   let publicKey = opts.publicKey
   let secretKey = opts.secretKey
 
@@ -77,7 +81,9 @@ function listen(opts, connectionHandler) {
 }
 
 function connect(opts) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    await sodium.ready
+    
     let timeoutId, timeout, connected
 
     let publicKey = opts.publicKey
