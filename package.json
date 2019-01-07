@@ -1,7 +1,7 @@
 {
   "name": "swarm-peer-server",
   "description": "A network swarm for creating secure P2P connections over Bittorrent DHT, DNS, and mDNS.",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "index.js",
   "repository": {
     "type": "git",
