@@ -91,7 +91,7 @@ declare namespace SwarmServer {
   export function listen(
     opts: SwarmListenOptions,
     handler: (socket: EncryptedSocket, peerKey: Key) => void
-  ): DiscoverySwarm
+  ): Promise<DiscoverySwarm>
 
   export function connect(opts: SwarmConnectOptions): Promise<{
     socket: EncryptedSocket,
