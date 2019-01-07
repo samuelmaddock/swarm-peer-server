@@ -74,7 +74,7 @@ async function listen(opts, connectionHandler) {
     }
 
     debug(`Authed with peer: ${address}`)
-    connectionHandler(esocket, esocket.peerKey, info)
+    connectionHandler(esocket, Buffer.from(esocket.peerKey), info)
   })
 
   return swarm
